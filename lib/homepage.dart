@@ -106,7 +106,10 @@ class _HomepageState extends State<Homepage> {
                     children: [
                       Expanded(
                         child: isLoading
-                            ? CircularProgressIndicator()
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CircularProgressIndicator(),
+                              )
                             : ElevatedButton(
                                 onPressed: () {
                                   createTodos(

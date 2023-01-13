@@ -23,3 +23,25 @@ class MyLogics {
     }
   }
 }
+
+class AddCategory {
+  var myData = {'foo': 0, 'bar': true};
+  setCategory() async {
+    CollectionReference _catagory =
+        FirebaseFirestore.instance.collection("alldatabase");
+
+    try {
+      _catagory.doc("hhhh");
+    } catch (e) {
+      print(e.toString());
+    }
+
+    // try {
+    //   _catagory.doc("hasanbd").set({}).whenComplete(() {
+    //     print("added ");
+    //   });
+    // } catch (e) {
+    //   print(e.toString());
+    // }
+  }
+}

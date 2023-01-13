@@ -61,8 +61,9 @@ class _NewHomepageState extends State<NewHomepage> {
                         child: ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              MyLogics().sendDatatoDB(nameController.text,
-                                  villageController.text, phoneController.text);
+                              // MyLogics().sendDatatoDB(nameController.text,
+                              //     villageController.text, phoneController.text);
+                              AddCategory().setCategory();
                             });
                           },
                           child: Text("Add"),
