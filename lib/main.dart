@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mytodo/newhomepage.dart';
 import 'package:mytodo/pages/addtodo.dart';
+import 'package:mytodo/pages/allmytodos.dart';
+import 'package:mytodo/pages/splashscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AddtodoPage(),
+      home: SplashScreen(),
     );
   }
 }

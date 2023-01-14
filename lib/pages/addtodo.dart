@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:mytodo/pages/allmytodos.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddtodoPage extends StatefulWidget {
   const AddtodoPage({super.key});
@@ -14,6 +17,9 @@ class _AddtodoPageState extends State<AddtodoPage> {
 
   String type = "";
   String category = "";
+
+  final _titleKey = GlobalKey<FormState>();
+  final _descriptionKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
@@ -30,7 +36,27 @@ class _AddtodoPageState extends State<AddtodoPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Task Title"),
+            Row(
+              children: [
+                Text("Task Title"),
+                Spacer(),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => AllTodosPage());
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.cyan,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Browse all"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               height: screenHeight * 0.02,
             ),
@@ -93,16 +119,21 @@ class _AddtodoPageState extends State<AddtodoPage> {
             InkWell(
               onTap: () {
                 setState(() {
-                  FirebaseFirestore.instance.collection("hasannotebook").add({
-                    "title": titleController.text,
-                    "task": type,
-                    "description": descriptionController.text,
-                    "category": category,
-                  }).whenComplete(() {
-                    titleController.clear();
-                    descriptionController.clear();
-                  });
+                  if (_titleKey.currentState!.validate()) {}
                 });
+                // setState(() {
+                //   FirebaseFirestore.instance.collection("hasannotebook").add({
+                //     "title": titleController.text,
+                //     "task": type,
+                //     "description": descriptionController.text,
+                //     "category": category,
+                //   }).whenComplete(() {
+                //     print("added data");
+                //     titleController.clear();
+                //     descriptionController.clear();
+                //     Get.to(() => AllTodosPage());
+                //   });
+                // });
               },
               child: Container(
                 height: 50,
@@ -180,12 +211,27 @@ class _AddtodoPageState extends State<AddtodoPage> {
         borderRadius: BorderRadius.circular(15),
         color: Colors.grey,
       ),
-      child: TextFormField(
-        controller: titleController,
-        decoration: InputDecoration(
-          hintText: "Title",
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.only(left: 20),
+      child: Form(
+        key: _titleKey,
+        child: TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              Fluttertoast.showToast(
+                  msg: "Enter Title",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
+            return null;
+          },
+          controller: titleController,
+          decoration: InputDecoration(
+            hintText: "Title",
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.only(left: 20),
+          ),
         ),
       ),
     );
@@ -200,13 +246,28 @@ class _AddtodoPageState extends State<AddtodoPage> {
         borderRadius: BorderRadius.circular(15),
         color: Colors.grey,
       ),
-      child: TextFormField(
-        controller: descriptionController,
-        decoration: InputDecoration(
-          hintText: "Description",
-          border: InputBorder.none,
-          errorMaxLines: null,
-          contentPadding: EdgeInsets.only(left: 20),
+      child: Form(
+        key: _descriptionKey,
+        child: TextFormField(
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              Fluttertoast.showToast(
+                  msg: "Enter Description",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            }
+            return null;
+          },
+          controller: descriptionController,
+          decoration: InputDecoration(
+            hintText: "Description",
+            border: InputBorder.none,
+            errorMaxLines: null,
+            contentPadding: EdgeInsets.only(left: 20),
+          ),
         ),
       ),
     );
