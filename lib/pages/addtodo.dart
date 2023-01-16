@@ -25,6 +25,9 @@ class _AddtodoPageState extends State<AddtodoPage> {
     var screenHeight = MediaQuery.of(context).size.height;
     var screenWidth = MediaQuery.of(context).size.width;
 
+    CollectionReference todos =
+        FirebaseFirestore.instance.collection("hasanbook");
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -85,13 +88,14 @@ class _AddtodoPageState extends State<AddtodoPage> {
                     child: TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Enter Title",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
+                          return "Enter title";
+                          // Fluttertoast.showToast(
+                          //     msg: "Enter Title",
+                          //     toastLength: Toast.LENGTH_SHORT,
+                          //     gravity: ToastGravity.BOTTOM,
+                          //     timeInSecForIosWeb: 1,
+                          //     textColor: Colors.white,
+                          //     fontSize: 16.0);
                         }
                         return null;
                       },
@@ -123,18 +127,18 @@ class _AddtodoPageState extends State<AddtodoPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          Fluttertoast.showToast(
-                              msg: "Enter Description",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              textColor: Colors.white,
-                              fontSize: 16.0);
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     Fluttertoast.showToast(
+                      //         msg: "Enter Description",
+                      //         toastLength: Toast.LENGTH_SHORT,
+                      //         gravity: ToastGravity.BOTTOM,
+                      //         timeInSecForIosWeb: 1,
+                      //         textColor: Colors.white,
+                      //         fontSize: 16.0);
+                      //   }
+                      //   return null;
+                      // },
                       controller: descriptionController,
                       decoration: InputDecoration(
                         hintText: "Description",
@@ -211,20 +215,41 @@ class _AddtodoPageState extends State<AddtodoPage> {
             InkWell(
               onTap: () {
                 setState(() {
-                  if (_titleKey.currentState!.validate()) {
-                    print("object");
+                  if (titleController.text.isEmpty &&
+                          descriptionController.text.isEmpty ||
+                      titleController.text.isEmpty ||
+                      descriptionController.text.isEmpty) {
+                    Fluttertoast.showToast(
+                        msg: "Enter all fields",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
                   }
-                  FirebaseFirestore.instance.collection("hasannotebook").add({
-                    "title": titleController.text,
-                    "task": type,
-                    "description": descriptionController.text,
-                    "category": category,
-                  }).whenComplete(() {
-                    print("added data");
-                    titleController.clear();
-                    descriptionController.clear();
-                    Get.to(() => AllTodosPage());
-                  });
+                  // else if (titleController.text.isEmpty ||
+                  //     descriptionController.text.isEmpty) {
+                  //   Fluttertoast.showToast(
+                  //       msg: "Enter all fields",
+                  //       toastLength: Toast.LENGTH_SHORT,
+                  //       gravity: ToastGravity.CENTER,
+                  //       timeInSecForIosWeb: 1,
+                  //       textColor: Colors.white,
+                  //       fontSize: 16.0);
+                  // }
+                  else {
+                    todos.add({
+                      "title": titleController.text,
+                      "task": type,
+                      "description": descriptionController.text,
+                      "category": category,
+                    }).whenComplete(() {
+                      print("added data");
+                      titleController.clear();
+                      descriptionController.clear();
+                      Get.to(() => AllTodosPage());
+                    });
+                  }
                 });
               },
               child: Container(
