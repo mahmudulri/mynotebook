@@ -19,9 +19,15 @@ class _AllTodosPageState extends State<AllTodosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white24,
       appBar: AppBar(
+        backgroundColor: Colors.white24,
+        elevation: 0.0,
         centerTitle: true,
-        title: Text("My NoteBook"),
+        title: Text(
+          "My NoteBook",
+          style: TextStyle(fontSize: 18, color: Colors.white38),
+        ),
       ),
       body: FutureBuilder(
         future: FirebaseFirestore.instance.collection("hasanbook").get(),
@@ -40,12 +46,13 @@ class _AllTodosPageState extends State<AllTodosPage> {
               child: ListView(
                 children: _todo.map((todo) {
                   return Container(
+                    margin: EdgeInsets.only(bottom: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.grey,
                     ),
                     child: ListTile(
-                      leading: Text(),
+                      leading: Text("index"),
                       title: Text("${todo["title"]}"),
                       subtitle: todo["description"].toString().length > 20
                           ? Text(
