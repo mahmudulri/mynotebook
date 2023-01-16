@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mytodo/pages/addtodo.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({super.key});
@@ -64,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         key: _formkey,
                         child: TextFormField(
                           keyboardType: TextInputType.number,
-                          autovalidateMode: AutovalidateMode.always,
+                          // autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             if (value == null ||
                                 value.isEmpty ||
@@ -101,26 +102,48 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(
               height: 20,
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.black,
-                shape: BoxShape.circle,
-              ),
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (_formkey.currentState!.validate()) {
-                      Get.to(() => AddtodoPage());
-                    }
-                  });
-                },
+            // Container(
+            //   decoration: BoxDecoration(
+            //     color: Colors.black,
+            //     shape: BoxShape.circle,
+            //   ),
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       setState(() {
+            //         if (_formkey.currentState!.validate()) {
+            //           Get.to(() => AddtodoPage());
+            //         }
+            //       });
+            //     },
+            //     child: Icon(
+            //       Icons.arrow_forward,
+            //       size: 70,
+            //       color: Colors.white,
+            //     ),
+            //   ),
+            // ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (_formkey.currentState!.validate()) {
+                    Get.to(() => AddtodoPage());
+                  }
+                });
+              },
+              child: Neumorphic(
+                style: NeumorphicStyle(
+                    shape: NeumorphicShape.concave,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                    depth: 8,
+                    lightSource: LightSource.topLeft,
+                    color: Colors.grey),
                 child: Icon(
                   Icons.arrow_forward,
                   size: 70,
-                  color: Colors.white,
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
