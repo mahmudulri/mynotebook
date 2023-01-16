@@ -29,8 +29,12 @@ class _AddtodoPageState extends State<AddtodoPage> {
         FirebaseFirestore.instance.collection("hasanbook");
 
     return Scaffold(
+      backgroundColor: Colors.white24,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Colors.white24,
+        elevation: 0.0,
+        centerTitle: true,
         title: Text("My NoteBook"),
       ),
       body: Padding(
@@ -257,7 +261,7 @@ class _AddtodoPageState extends State<AddtodoPage> {
                 width: screenWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: Colors.blueAccent,
+                  color: Colors.white24,
                 ),
                 child: Center(
                   child: Text(

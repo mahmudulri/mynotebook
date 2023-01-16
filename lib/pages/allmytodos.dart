@@ -52,7 +52,7 @@ class _AllTodosPageState extends State<AllTodosPage> {
                       color: Colors.grey,
                     ),
                     child: ListTile(
-                      leading: Text("index"),
+                      // leading: Text(Index).toString(),
                       title: Text("${todo["title"]}"),
                       subtitle: todo["description"].toString().length > 20
                           ? Text(
