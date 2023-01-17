@@ -230,18 +230,7 @@ class _AddtodoPageState extends State<AddtodoPage> {
                         timeInSecForIosWeb: 1,
                         textColor: Colors.white,
                         fontSize: 16.0);
-                  }
-                  // else if (titleController.text.isEmpty ||
-                  //     descriptionController.text.isEmpty) {
-                  //   Fluttertoast.showToast(
-                  //       msg: "Enter all fields",
-                  //       toastLength: Toast.LENGTH_SHORT,
-                  //       gravity: ToastGravity.CENTER,
-                  //       timeInSecForIosWeb: 1,
-                  //       textColor: Colors.white,
-                  //       fontSize: 16.0);
-                  // }
-                  else {
+                  } else {
                     todos.add({
                       "title": titleController.text,
                       "task": type,
@@ -261,7 +250,7 @@ class _AddtodoPageState extends State<AddtodoPage> {
                 width: screenWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: Colors.white24,
+                  color: Colors.green,
                 ),
                 child: Center(
                   child: Text(

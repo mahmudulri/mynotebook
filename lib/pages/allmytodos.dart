@@ -36,7 +36,7 @@ class _AllTodosPageState extends State<AllTodosPage> {
             return Text("Some error");
           }
           if (!snapshot.hasData) {
-            return Center(child: Text("No data"));
+            return Center(child: CircularProgressIndicator());
           }
           if (snapshot.connectionState == ConnectionState.done) {
             List<QueryDocumentSnapshot<Object?>> _todo = snapshot.data!.docs;
@@ -51,29 +51,35 @@ class _AllTodosPageState extends State<AllTodosPage> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.grey,
                     ),
-                    child: ListTile(
-                      // leading: Text(Index).toString(),
-                      title: Text("${todo["title"]}"),
-                      subtitle: todo["description"].toString().length > 20
-                          ? Text(
-                              "${todo["description"].toString().substring(0, 25)}...")
-                          : Text("${todo["description"]}"),
-                      trailing: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            deleteTodo(todo.id);
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Icon(
-                              Icons.delete,
-                              color: Colors.red,
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => DetailsTodo(
+                            mytitle: todo["title"],
+                            mydescription: todo["description"]));
+                      },
+                      child: ListTile(
+                        title: Text("${todo["title"]}"),
+                        subtitle: todo["description"].toString().length > 20
+                            ? Text(
+                                "${todo["description"].toString().substring(0, 25)}...")
+                            : Text("${todo["description"]}"),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              deleteTodo(todo.id);
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
                         ),

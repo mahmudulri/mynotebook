@@ -59,40 +59,45 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 200,
-                      child: Form(
-                        key: _formkey,
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          // autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value != mypass.toString()) {
-                              return "enter password";
-                            }
-                            return null;
-                          },
-                          obscureText: isvisible,
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left: 20),
-                            border: InputBorder.none,
-                            hintText: "password",
+                    Expanded(
+                      flex: 10,
+                      child: Container(
+                        width: 200,
+                        child: Form(
+                          key: _formkey,
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            // autovalidateMode: AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  value != mypass.toString()) {
+                                return "enter password";
+                              }
+                              return null;
+                            },
+                            obscureText: isvisible,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.only(left: 20),
+                              border: InputBorder.none,
+                              hintText: "password",
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            isvisible = !isvisible;
-                          });
-                        },
-                        child: Icon(Icons.visibility),
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              isvisible = !isvisible;
+                            });
+                          },
+                          child: Icon(Icons.visibility),
+                        ),
                       ),
                     ),
                   ],

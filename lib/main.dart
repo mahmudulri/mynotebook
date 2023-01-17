@@ -8,7 +8,14 @@ import 'package:mytodo/pages/splashscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "AIzaSyBQHwwIAAXwr2JfteU1SI4cD_7MTj_LkCY",
+      appId: "1:612466554316:web:eefe84f43c0faf6dc85969",
+      messagingSenderId: "612466554316",
+      projectId: "mynotebook-c350d",
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -24,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AddtodoPage(),
+      home: SplashScreen(),
     );
   }
 }
