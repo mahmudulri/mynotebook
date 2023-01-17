@@ -18,6 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -68,14 +70,14 @@ class _SplashScreenState extends State<SplashScreen> {
                           child: TextFormField(
                             keyboardType: TextInputType.number,
                             // autovalidateMode: AutovalidateMode.onUserInteraction,
-                            validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  value != mypass.toString()) {
-                                return "enter password";
-                              }
-                              return null;
-                            },
+                            // validator: (value) {
+                            //   if (value == null ||
+                            //       value.isEmpty ||
+                            //       value != mypass.toString()) {
+                            //     return "enter password";
+                            //   }
+                            //   return null;
+                            // },
                             obscureText: isvisible,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(left: 20),
@@ -130,10 +132,13 @@ class _SplashScreenState extends State<SplashScreen> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  if (_formkey.currentState!.validate()) {
-                    Get.to(() => AddtodoPage());
-                  }
+                  Get.to(() => AddtodoPage());
                 });
+                // setState(() {
+                //   if (_formkey.currentState!.validate()) {
+                //     Get.to(() => AddtodoPage());
+                //   }
+                // });
               },
               child: Neumorphic(
                 style: NeumorphicStyle(
@@ -148,7 +153,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   size: 70,
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text("use 989898 for default password"),
           ],
         ),
       ),

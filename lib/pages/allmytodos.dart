@@ -18,6 +18,8 @@ class _AllTodosPageState extends State<AllTodosPage> {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white24,
       appBar: AppBar(
@@ -58,32 +60,61 @@ class _AllTodosPageState extends State<AllTodosPage> {
                             mydescription: todo["description"]));
                       },
                       child: ListTile(
-                        title: Text("${todo["title"]}"),
-                        subtitle: todo["description"].toString().length > 20
-                            ? Text(
-                                "${todo["description"].toString().substring(0, 25)}...")
-                            : Text("${todo["description"]}"),
-                        trailing: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              deleteTodo(todo.id);
-                            });
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
+                          title: Text("${todo["title"]}"),
+                          subtitle: todo["description"].toString().length > 20
+                              ? Text(
+                                  "${todo["description"].toString().substring(0, 25)}...")
+                              : Text("${todo["description"]}"),
+                          trailing: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      deleteTodo(todo.id);
+                                    });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: screenWidth * 0.02,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    // setState(() {
+                                    //   deleteTodo(todo.id);
+                                    // });
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                          )),
                     ),
                   );
                 }).toList(),

@@ -30,7 +30,7 @@ class _AddtodoPageState extends State<AddtodoPage> {
 
     return Scaffold(
       backgroundColor: Colors.white24,
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white24,
         elevation: 0.0,
@@ -39,232 +39,235 @@ class _AddtodoPageState extends State<AddtodoPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Get.to(() => AllTodosPage());
-              },
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.cyan,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Browse all"),
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => AllTodosPage());
+                },
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.cyan,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Browse all"),
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            // title(),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            Form(
-              key: _titleKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+              // title(),
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+              Form(
+                key: _titleKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Task Title",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Enter title";
+                            // Fluttertoast.showToast(
+                            //     msg: "Enter Title",
+                            //     toastLength: Toast.LENGTH_SHORT,
+                            //     gravity: ToastGravity.BOTTOM,
+                            //     timeInSecForIosWeb: 1,
+                            //     textColor: Colors.white,
+                            //     fontSize: 16.0);
+                          }
+                          return null;
+                        },
+                        controller: titleController,
+                        decoration: InputDecoration(
+                          hintText: "Title",
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: 20),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Task Description",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      height: 155,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        // validator: (value) {
+                        //   if (value == null || value.isEmpty) {
+                        //     Fluttertoast.showToast(
+                        //         msg: "Enter Description",
+                        //         toastLength: Toast.LENGTH_SHORT,
+                        //         gravity: ToastGravity.BOTTOM,
+                        //         timeInSecForIosWeb: 1,
+                        //         textColor: Colors.white,
+                        //         fontSize: 16.0);
+                        //   }
+                        //   return null;
+                        // },
+                        controller: descriptionController,
+                        decoration: InputDecoration(
+                          hintText: "Description",
+                          border: InputBorder.none,
+                          errorMaxLines: null,
+                          contentPadding: EdgeInsets.only(left: 20),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+
+              Text(
+                "Task Type",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              Row(
                 children: [
-                  Text(
-                    "Task Title",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                    ),
-                  ),
+                  taskSelect("Important", 0xff2464fa),
                   SizedBox(
-                    height: 5,
+                    width: 10,
                   ),
-                  Container(
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter title";
-                          // Fluttertoast.showToast(
-                          //     msg: "Enter Title",
-                          //     toastLength: Toast.LENGTH_SHORT,
-                          //     gravity: ToastGravity.BOTTOM,
-                          //     timeInSecForIosWeb: 1,
-                          //     textColor: Colors.white,
-                          //     fontSize: 16.0);
-                        }
-                        return null;
-                      },
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        hintText: "Title",
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(left: 20),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Task Description",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Container(
-                    height: 155,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextFormField(
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     Fluttertoast.showToast(
-                      //         msg: "Enter Description",
-                      //         toastLength: Toast.LENGTH_SHORT,
-                      //         gravity: ToastGravity.BOTTOM,
-                      //         timeInSecForIosWeb: 1,
-                      //         textColor: Colors.white,
-                      //         fontSize: 16.0);
-                      //   }
-                      //   return null;
-                      // },
-                      controller: descriptionController,
-                      decoration: InputDecoration(
-                        hintText: "Description",
-                        border: InputBorder.none,
-                        errorMaxLines: null,
-                        contentPadding: EdgeInsets.only(left: 20),
-                      ),
-                    ),
-                  ),
+                  taskSelect("Normal", 0xff2ba8d9),
                 ],
               ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-
-            Text(
-              "Task Type",
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
+              SizedBox(
+                height: screenHeight * 0.01,
               ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            Row(
-              children: [
-                taskSelect("Important", 0xff2464fa),
-                SizedBox(
-                  width: 10,
-                ),
-                taskSelect("Normal", 0xff2ba8d9),
-              ],
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
 
-            Text(
-              "Categories",
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
+              Text(
+                "Categories",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            Wrap(
-              children: [
-                categorySelect("Food", 0xff2464fa),
-                SizedBox(
-                  width: 10,
-                ),
-                categorySelect("Workout", 0xfff29732),
-                SizedBox(
-                  width: 10,
-                ),
-                categorySelect("Work", 0xff2ba8d9),
-                SizedBox(
-                  width: 10,
-                ),
-                categorySelect("Design", 0xff2ba8d9),
-                SizedBox(
-                  width: 10,
-                ),
-                categorySelect("Run", 0xff2ba8d9),
-              ],
-            ),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  if (titleController.text.isEmpty &&
-                          descriptionController.text.isEmpty ||
-                      titleController.text.isEmpty ||
-                      descriptionController.text.isEmpty) {
-                    Fluttertoast.showToast(
-                        msg: "Enter all fields",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                  } else {
-                    todos.add({
-                      "title": titleController.text,
-                      "task": type,
-                      "description": descriptionController.text,
-                      "category": category,
-                    }).whenComplete(() {
-                      print("added data");
-                      titleController.clear();
-                      descriptionController.clear();
-                      Get.to(() => AllTodosPage());
-                    });
-                  }
-                });
-              },
-              child: Container(
-                height: 50,
-                width: screenWidth,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  color: Colors.green,
-                ),
-                child: Center(
-                  child: Text(
-                    "ADD NOW",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              Wrap(
+                children: [
+                  categorySelect("Food", 0xff2464fa),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  categorySelect("Workout", 0xfff29732),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  categorySelect("Work", 0xff2ba8d9),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  categorySelect("Design", 0xff2ba8d9),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  categorySelect("Run", 0xff2ba8d9),
+                ],
+              ),
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    if (titleController.text.isEmpty &&
+                            descriptionController.text.isEmpty ||
+                        titleController.text.isEmpty ||
+                        descriptionController.text.isEmpty) {
+                      Fluttertoast.showToast(
+                          msg: "Enter all fields",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                    } else {
+                      todos.add({
+                        "title": titleController.text,
+                        "task": type,
+                        "description": descriptionController.text,
+                        "category": category,
+                      }).whenComplete(() {
+                        print("added data");
+                        titleController.clear();
+                        descriptionController.clear();
+                        Get.to(() => AllTodosPage());
+                      });
+                    }
+                  });
+                },
+                child: Container(
+                  height: 50,
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    color: Colors.green,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "ADD NOW",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
